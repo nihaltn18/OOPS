@@ -1,14 +1,15 @@
 #include <iostream>
 using namespace std;
-struct node
+class node
 {
+public:
     int data{};
     node* left = NULL;
     node* right = NULL;
     node* parent = NULL;
     string color;
 };
-class RB_TREE
+class RB_TREE:protected node
 {
     node* root;
 public:
@@ -651,33 +652,33 @@ int main()
     int option,tree_no=0, i;
     RB_TREE *list[100];
     RB_TREE current, *temp;
-    while(1) 
+    while(1)
     {
         cout<<"1.CREATE NEW TREE\n2.USE EXISTING TREE\n3.EXIT\n";
         cin>>option;
-        if(option==1) 
+        if(option==1)
         {
             temp=new RB_TREE() ;
             list[tree_no]=temp;
             tree_no++;
             cout<<"new tree created with number "<<tree_no<<endl;
         }
-        else if(option==2) 
+        else if(option==2)
         {
             cout<<"enter the tree number\n";
             cin>>i;
-            if(tree_no>=i) 
+            if(tree_no>=i)
             {
                 subq(list[i-1]) ;
             }
             else
-            cout<<"tree not found\n";
+                cout<<"tree not found\n";
         }
-        else if(option==3) 
+        else if(option==3)
         {
             break;
         }
-        else 
+        else
         {
             cout<<"please enter a valid input\n";
         }
