@@ -1,4 +1,7 @@
 #include <iostream>
+#include<fstream>
+#include<string>
+#include<sstream>
 using namespace std;
 class node
 {
@@ -29,11 +32,23 @@ public:
     void PreorderTraversal(node* temp);
     void PostorderTraversal(node *temp);
     void InorderTraversal(node *temp);
-
+    void Insert(node* temp);
 };
+string str;
 node* RB_TREE::GetRoot()
 {
     return root;
+}
+void RB_TREE::Insert(node *temp)
+{
+    if(!temp)
+    return;
+    Insert(temp->left);
+    Insert(temp->right);
+    ostringstream st;
+    st<<temp->data;
+    string s=st.str();
+    str=str+"--> "+s+"<"+temp->color+">";
 }
 void RB_TREE:: InorderTraversal(node *temp)
 {
@@ -580,7 +595,8 @@ void menu()
     cout << "\n5. POST-ORDER Tree-Walk.";
     cout << "\n6. IN-ORDER Tree-Walk.";
     cout << "\n7. to change the tree.";
-    cout << "\n8. Exit.";
+    cout << "\n8. to insert the present tree into a .txt file.";
+    cout << "\n9. Exit.";
     cout << "\n__________________________________________";
     cout << "\nYour Choice -- \n";
 }
@@ -643,6 +659,19 @@ void subq(RB_TREE *current)
             return;
         }
         else if(sub_option==8)
+        {
+            str="";
+            current->Insert(current->GetRoot());
+            cout<<"enter the name of the file in which you want to save the tree\n";
+            string s;
+            cin>>s;
+            ofstream myfile(s,ios::app);
+            myfile<<str;
+            str="";
+            myfile.close();
+            cout<<"file with the given name is created with all the current tree elements in postorder format\n";
+        }
+        else if(sub_option==9)
         {
             exit(0) ;
         }
