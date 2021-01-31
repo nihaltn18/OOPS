@@ -32,23 +32,47 @@ public:
     void PreorderTraversal(node* temp);
     void PostorderTraversal(node *temp);
     void InorderTraversal(node *temp);
-    void Insert(node* temp);
+    void Insert_postorder(node* temp);
+    void Insert_preorder(node* temp);
+    void Insert_inorder(node* temp);
 };
 string str;
 node* RB_TREE::GetRoot()
 {
     return root;
 }
-void RB_TREE::Insert(node *temp)
+void RB_TREE::Insert_postorder(node *temp)
 {
     if(!temp)
     return;
-    Insert(temp->left);
-    Insert(temp->right);
+    Insert_postorder(temp->left);
+    Insert_postorder(temp->right);
     ostringstream st;
     st<<temp->data;
     string s=st.str();
     str=str+"--> "+s+"<"+temp->color+">";
+}
+void RB_TREE::Insert_preorder(node *temp)
+{
+    if(!temp)
+    return;
+    ostringstream st;
+    st<<temp->data;
+    string s=st.str();
+    str=str+"--> "+s+"<"+temp->color+">";
+    Insert_preorder(temp->left);
+    Insert_preorder(temp->right);
+}
+void RB_TREE::Insert_inorder(node *temp)
+{
+    if(!temp)
+    return;
+    Insert_inorder(temp->left);
+    ostringstream st;
+    st<<temp->data;
+    string s=st.str();
+    str=str+"--> "+s+"<"+temp->color+">";
+    Insert_inorder(temp->right);
 }
 void RB_TREE:: InorderTraversal(node *temp)
 {
@@ -660,16 +684,53 @@ void subq(RB_TREE *current)
         }
         else if(sub_option==8)
         {
-            str="";
-            current->Insert(current->GetRoot());
-            cout<<"enter the name of the file in which you want to save the tree\n";
-            string s;
-            cin>>s;
-            ofstream myfile(s,ios::app);
-            myfile<<str;
-            str="";
-            myfile.close();
-            cout<<"file with the given name is created with all the current tree elements in postorder format\n";
+            int i;
+            cout<<"1.postorder\n2.preorder\n3.inorder\n";
+            cin>>i;
+            if(i==1)
+            {
+                str="";
+                current->Insert_postorder(current->GetRoot());
+                cout<<"enter the name of the file in which you want to save the tree\n";
+                string s;
+                cin>>s;
+                ofstream myfile(s,ios::app);
+                myfile<<str;
+                str="";
+                myfile.close();
+                cout<<"file with the given name is created with all the current tree elements in postorder format\n";
+            }
+            else if (i==2)
+            {
+                str="";
+                current->Insert_preorder(current->GetRoot());
+                cout<<"enter the name of the file in which you want to save the tree\n";
+                string s;
+                cin>>s;
+                ofstream myfile(s,ios::app);
+                myfile<<str;
+                str="";
+                myfile.close();
+                cout<<"file with the given name is created with all the current tree elements in preorder format\n";
+            }
+            else if(i==3)
+            {
+                str="";
+                current->Insert_inorder(current->GetRoot());
+                cout<<"enter the name of the file in which you want to save the tree\n";
+                string s;
+                cin>>s;
+                ofstream myfile(s,ios::app);
+                myfile<<str;
+                str="";
+                myfile.close();
+                cout<<"file with the given name is created with all the current tree elements in inorder format\n";
+            }
+            else
+            {
+                cout<<"invalid input";
+            }
+            
         }
         else if(sub_option==9)
         {
