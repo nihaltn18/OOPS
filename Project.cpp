@@ -12,7 +12,7 @@ public:
     node* parent = NULL;
     string color;
 };
-class RB_TREE
+class RB_TREE:protected node
 {
     node* root;
 public:
