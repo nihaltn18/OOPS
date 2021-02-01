@@ -3,45 +3,49 @@
 #include<string>
 #include<sstream>
 using namespace std;
+template<typename t>
 class node
 {
 public:
-    int data;
+    t data;
     node* left = NULL;
     node* right = NULL;
     node* parent = NULL;
     string color;
 };
-class RB_TREE:protected node
+template<typename t>
+class RB_TREE
 {
-    node* root;
+    node<t>* root;
 public:
     RB_TREE()
     {
         root=NULL;
     }
-    node* GetRoot();
-    void InsertNode(int stuff);
-    void RB_Insert_Fixup(node* z);
-    void RemoveNode(node* parent, node* curr, int stuff);
-    void Remove(int stuff);
-    void RB_Delete_Fixup(node* z);
-    node* TreeSearch(int stuff);
-    void LeftRotate(node* x);
-    void RightRotate(node* x);
-    void PreorderTraversal(node* temp);
-    void PostorderTraversal(node *temp);
-    void InorderTraversal(node *temp);
-    void Insert_postorder(node* temp);
-    void Insert_preorder(node* temp);
-    void Insert_inorder(node* temp);
+    node<t>* GetRoot();
+    void InsertNode(t stuff);
+    void RB_Insert_Fixup(node<t>* z);
+    void RemoveNode(node<t>* parent, node<t>* curr, t stuff);
+    void Remove(t stuff);
+    void RB_Delete_Fixup(node<t>* z);
+    node<t>* TreeSearch(t stuff);
+    void LeftRotate(node<t>* x);
+    void RightRotate(node<t>* x);
+    void PreorderTraversal(node<t>* temp);
+    void PostorderTraversal(node<t> *temp);
+    void InorderTraversal(node<t> *temp);
+    void Insert_postorder(node<t>* temp);
+    void Insert_preorder(node<t>* temp);
+    void Insert_inorder(node<t>* temp);
 };
 string str;
-node* RB_TREE::GetRoot()
+template<typename t>
+node<t>* RB_TREE<t>::GetRoot()
 {
     return root;
 }
-void RB_TREE::Insert_postorder(node *temp)
+template<typename t>
+void RB_TREE<t>::Insert_postorder(node<t> *temp)
 {
     if(!temp)
     return;
@@ -52,7 +56,8 @@ void RB_TREE::Insert_postorder(node *temp)
     string s=st.str();
     str=str+"--> "+s+"<"+temp->color+">";
 }
-void RB_TREE::Insert_preorder(node *temp)
+template<typename t>
+void RB_TREE<t>::Insert_preorder(node<t> *temp)
 {
     if(!temp)
     return;
@@ -63,7 +68,8 @@ void RB_TREE::Insert_preorder(node *temp)
     Insert_preorder(temp->left);
     Insert_preorder(temp->right);
 }
-void RB_TREE::Insert_inorder(node *temp)
+template<typename t>
+void RB_TREE<t>::Insert_inorder(node<t> *temp)
 {
     if(!temp)
     return;
@@ -74,7 +80,8 @@ void RB_TREE::Insert_inorder(node *temp)
     str=str+"--> "+s+"<"+temp->color+">";
     Insert_inorder(temp->right);
 }
-void RB_TREE:: InorderTraversal(node *temp)
+template<typename t>
+void RB_TREE<t>:: InorderTraversal(node<t> *temp)
 {
     if(!temp)
     {
@@ -84,7 +91,8 @@ void RB_TREE:: InorderTraversal(node *temp)
     cout << "--> " << temp->data << "<" << temp->color << ">";
     InorderTraversal(temp->right);
 }
-void RB_TREE:: PostorderTraversal(node *temp)
+template<typename t>
+void RB_TREE<t>:: PostorderTraversal(node<t> *temp)
 {
     if(!temp)
     {
@@ -94,7 +102,8 @@ void RB_TREE:: PostorderTraversal(node *temp)
     PostorderTraversal(temp->right);
     cout << "--> " << temp->data << "<" << temp->color << ">";
 }
-void RB_TREE:: PreorderTraversal(node* temp)
+template<typename t>
+void RB_TREE<t>:: PreorderTraversal(node<t>* temp)
 {
     if(!temp)
     {
@@ -104,9 +113,10 @@ void RB_TREE:: PreorderTraversal(node* temp)
     PreorderTraversal(temp->left);
     PreorderTraversal(temp->right);
 }
-void RB_TREE:: RightRotate(node* x)
+template<typename t>
+void RB_TREE<t>:: RightRotate(node<t>* x)
 {
-    node* nw_node = new node();
+    node<t>* nw_node = new node<t>();
     if(x->left->right)
     {
         nw_node->left = x->left->right;
@@ -143,9 +153,10 @@ void RB_TREE:: RightRotate(node* x)
         x->left->parent = x;
     }
 }
-void RB_TREE:: LeftRotate(node* x)
+template<typename t>
+void RB_TREE<t>:: LeftRotate(node<t>* x)
 {
-    node* nw_node = new node();
+    node<t>* nw_node = new node<t>();
     if(x->right->left)
     {
         nw_node->right = x->right->left;
@@ -180,9 +191,10 @@ void RB_TREE:: LeftRotate(node* x)
         x->right->parent = x;
     }
 }
-node* RB_TREE:: TreeSearch(int stuff)
+template<typename t>
+node<t>* RB_TREE<t>:: TreeSearch(t stuff)
 {
-    node* temp = GetRoot();
+    node<t>* temp = GetRoot();
     if(temp == nullptr)
     {
         return nullptr;
@@ -204,12 +216,13 @@ node* RB_TREE:: TreeSearch(int stuff)
     }
     return nullptr;
 }
-void RB_TREE:: RB_Delete_Fixup(node* z)
+template<typename t>
+void RB_TREE<t>:: RB_Delete_Fixup(node<t>* z)
 {
     while(z->data != root->data && z->color == "BLACK")
     {
         //initiating sibbling
-        node* sibling = GetRoot();
+        node<t>* sibling = GetRoot();
         //if node to be deleted is to
         //the left of the parent
         if(z->parent->left == z)
@@ -328,11 +341,12 @@ void RB_TREE:: RB_Delete_Fixup(node* z)
     }
     z->color = "BLACK";
 }
-void RB_TREE:: Remove(int stuff)
+template<typename t>
+void RB_TREE<t>:: Remove(t stuff)
 {
     //going to the required node
-    node* temp = root;
-    node* parent = temp;
+    node<t>* temp = root;
+    node<t>* parent = temp;
     bool flag = false;
     if(!temp)
     {
@@ -362,7 +376,8 @@ void RB_TREE:: Remove(int stuff)
         cout << "\nElement doesn't exist in the table";
     }
 }
-void RB_TREE:: RemoveNode(node* parent, node* curr, int stuff)
+template<typename t>
+void RB_TREE<t>::RemoveNode(node<t>* parent, node<t>* curr, t stuff)
 {
     if(curr == nullptr)
     {
@@ -399,7 +414,7 @@ void RB_TREE:: RemoveNode(node* parent, node* curr, int stuff)
         //only left child
         else if(curr->left != nullptr && curr->right == nullptr)
         {
-            int swap = curr->data;
+            t swap = curr->data;
             curr->data = curr->left->data;
             curr->left->data = swap;
             RemoveNode(curr, curr->right, stuff);
@@ -408,7 +423,7 @@ void RB_TREE:: RemoveNode(node* parent, node* curr, int stuff)
         //only right child
         else if(curr->left == nullptr && curr->right != nullptr)
         {
-            int swap = curr->data;
+            t swap = curr->data;
             curr->data = curr->right->data;
             curr->right->data = swap;
             RemoveNode(curr, curr->right, stuff);
@@ -417,7 +432,7 @@ void RB_TREE:: RemoveNode(node* parent, node* curr, int stuff)
         else
         {
             bool flag = false;
-            node* temp = curr->right;
+            node<t>* temp = curr->right;
             while(temp->left)
             {
                 flag = true;
@@ -428,21 +443,22 @@ void RB_TREE:: RemoveNode(node* parent, node* curr, int stuff)
             {
                 parent = curr;
             }
-            int swap = curr->data;
+            t swap = curr->data;
             curr->data = temp->data;
             temp->data = swap;
             RemoveNode(parent, temp, swap);
         }
     }
 }
-void RB_TREE:: RB_Insert_Fixup(node* z)
+template<typename t>
+void RB_TREE<t>:: RB_Insert_Fixup(node<t>* z)
 {
     //we need to alter the tree only
     // if the parent is red
     while(z->parent->color == "RED")
     {
-        node* grandparent = z->parent->parent;
-        node* uncle = GetRoot();
+        node<t>* grandparent = z->parent->parent;
+        node<t>* uncle = GetRoot();
         //if new node is to the left
         //of grandparent
         if(z->parent == grandparent->left)
@@ -550,13 +566,14 @@ void RB_TREE:: RB_Insert_Fixup(node* z)
     //finally set color of root to black
     root->color = "BLACK";
 }
-void RB_TREE:: InsertNode(int stuff)
+template<typename t>
+void RB_TREE<t>:: InsertNode(t stuff)
 {
     //normal bst insertion
     if(root == NULL)
     {
         //rootnode is always black
-        root = new node();
+        root = new node<t>();
         root->data = stuff;
         root->parent = nullptr;
         root->color = "BLACK";
@@ -564,8 +581,8 @@ void RB_TREE:: InsertNode(int stuff)
     }
     else
     {
-        node* linker = GetRoot();
-        node* newnode = new node();
+        node<t>* linker = GetRoot();
+        node<t>* newnode = new node<t>();
         newnode->data = stuff;
         while(linker != nullptr)
         {
@@ -624,7 +641,8 @@ void menu()
     cout << "\n__________________________________________";
     cout << "\nYour Choice -- \n";
 }
-void subq(RB_TREE *current)
+template<typename t>
+void subq(RB_TREE<t> *current)
 {
     int sub_option, i;
     while(1)
@@ -636,6 +654,7 @@ void subq(RB_TREE *current)
             cout<<"enter the element that you want to insert\nand enter '-1' when you want to stop inserting\n";
             while(1)
             {
+                t i;
                 cin>>i;
                 if(i==-1)
                 {
@@ -649,6 +668,7 @@ void subq(RB_TREE *current)
         }
         else if(sub_option==2)
         {
+            t i;
             cout<<"enter the element that you want to search for\n";
             cin>>i;
             if(current->TreeSearch(i))
@@ -662,6 +682,7 @@ void subq(RB_TREE *current)
         }
         else if(sub_option==3)
         {
+            t i;
             cout<<"enter the element that you want to delete\n";
             cin>>i;
             current->Remove(i) ;
@@ -752,30 +773,67 @@ int main()
     .postorderTraversal(.GetRoot()) ;
     .InorderTraversal(.GetRoot()) ;
     */
-    int option,tree_no=0, i;
-    RB_TREE *list[100];
-    RB_TREE current, *temp;
+    int option,tree_no=0, i,tree_no2=0;
+    RB_TREE<int> *list[100];
+    RB_TREE<float> *list2[100];
+    RB_TREE<int> current, *temp;
+    RB_TREE<float> current2, *temp2;
     while(1)
     {
         cout<<"1.CREATE NEW TREE\n2.USE EXISTING TREE\n3.EXIT\n";
         cin>>option;
         if(option==1)
         {
-            temp=new RB_TREE() ;
-            list[tree_no]=temp;
-            tree_no++;
-            cout<<"new tree created with number "<<tree_no<<endl;
+            cout<<"1.integer tree\n2.float tree\n";
+            int k;
+            cin>>k;
+            if(k==1)
+            {
+                temp=new RB_TREE<int>();
+                list[tree_no]=temp;
+                tree_no++;
+                cout<<"new tree created with number "<<tree_no<<endl;
+            }
+            else if(k==2)
+            {
+                temp2=new RB_TREE<float>();
+                list2[tree_no2]=temp2;
+                tree_no2++;
+                cout<<"new tree created with number "<<tree_no2<<endl;
+            }
+            else
+            {
+                cout<<"invalid option\n";
+            }
+            
         }
         else if(option==2)
         {
-            cout<<"enter the tree number\n";
-            cin>>i;
-            if(tree_no>=i)
+            cout<<"1.integer tree\n2.float tree\n";
+            int k;
+            cin>>k;
+            if(k==1)
             {
-                subq(list[i-1]) ;
+                cout<<"enter the tree number\n";
+                cin>>i;
+                if(tree_no>=i)
+                {
+                    subq(list[i-1]) ;
+                }
+                else
+                    cout<<"tree not found\n";
             }
-            else
-                cout<<"tree not found\n";
+            else if (k==2)
+            {
+                cout<<"enter the tree number\n";
+                cin>>i;
+                if(tree_no2>=i)
+                {
+                    subq(list2[i-1]) ;
+                }
+                else
+                    cout<<"tree not found\n";
+            }
         }
         else if(option==3)
         {
