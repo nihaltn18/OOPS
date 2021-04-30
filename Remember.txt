@@ -1,0 +1,5 @@
+In any inheritance -->
+Parent class object can access only it's class's data
+Child class object can access both it's class's and parent's class's data
+Parents class pointers can point to (or hold the address of) both it's class's object as well as it's child class's object
+Child class pointer on other hand can point to(or hold the address of) only its class's object but can't point to(or hold the address of) parent's class's object
