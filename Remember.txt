@@ -2,4 +2,8 @@ In any inheritance -->
 Parent class object can access only it's class's data
 Child class object can access both it's class's and parent's class's data
 Parents class pointers can point to (or hold the address of) both it's class's object as well as it's child class's object
+    -->when parent class pointer points to parent class object, then all the data mambers can be accessed by the pointer
+    -->when parent class pointer points to child class objects, then pointer can access only those methods and variables which are common to both parent and child class:
+        --->with the use of virtual keyword --> member variable and methods of parent class will be accessable and calld respectvely
+        --->without the use of virtual keyword --> member variables and methods of the child class will be accessable and called respectively
 Child class pointer on other hand can point to(or hold the address of) only its class's object but can't point to(or hold the address of) parent's class's object
