@@ -1,9 +1,53 @@
-In any inheritance -->
-Parent class object can access only it's class's data
-Child class object can access both it's class's and parent's class's data
-Parents class pointers can point to (or hold the address of) both it's class's object as well as it's child class's object
-    -->when parent class pointer points to parent class object, then all the data mambers can be accessed by the pointer
-    -->when parent class pointer points to child class objects, then pointer can access only those methods and variables which are common to both parent and child class:
-        --->with the use of virtual keyword --> member variable and methods of parent class will be accessable and calld respectvely
-        --->without the use of virtual keyword --> member variables and methods of the child class will be accessable and called respectively
-Child class pointer on other hand can point to(or hold the address of) only its class's object but can't point to(or hold the address of) parent's class's object
+-->In any inheritance -->
+    Parent class object can access only it's class's data
+    Child class object can access both it's class's and parent's class's data
+    Parents class pointers can point to (or hold the address of) both it's class's object as well as it's child class's object
+        -->when parent class pointer points to parent class object, then all the data mambers can be accessed by the pointer
+        -->when parent class pointer points to child class objects, then pointer can access only those methods and variables which are common to both parent and child class:
+            --->with the use of virtual keyword --> member variable and methods of parent class will be accessable and calld respectvely
+            --->without the use of virtual keyword --> member variables and methods of the child class will be accessable and called respectively
+    Child class pointer on other hand can point to(or hold the address of) only its class's object but can't point to(or hold the address of) parent's class's object
+
+
+-->access specifiers-->
+        -->public
+        -->private
+        -->protected
+    Syntax-->
+        class demo
+        {
+        public:
+            //some code
+        private:
+            //some code
+        protected:
+            //some code
+        //order of writing the blocks doesn't matter
+        }
+    private--> member variables and member functions are available to use only in that particular class, friend function and friend class
+    protected--> member variables and member functions are available to only that particular class, direct subclass, friend function and friend class
+    public--> member variables and member functions are available everywhere
+
+
+Friend function and friend class-->
+    Syntax-->
+         class demo
+         {
+          //some code
+          friend returntype function_name(arguments);
+          friend class class_name;
+          //above class and above function can access any of the member methods and member variables using the demo class object
+         }
+
+
+Inheritance access specifiers-->
+    Syntax-->
+        class class_name:access_specifier class_name, access_specifier class_name, access_specifier class_name........ 
+        {
+            //some code
+        }
+    Note-->
+        public-->public goes to public and protected goes to protected
+        protected-->both public and protected goes to protected
+        private-->both public and protected goes to private
+        private data members arr nevrr inherited
