@@ -51,3 +51,42 @@ Inheritance access specifiers-->
         protected-->both public and protected goes to protected
         private-->both public and protected goes to private
         private data members arr nevrr inherited
+
+templates in C++-->
+	it is like a general body which takes multiple general data types
+	--> for functions -->
+		template <typename T1, Template T2, Template T3.....>
+		return_type function_name(args)
+		{
+			some codes.......
+		}
+			
+			--OR--
+		
+		template <class T1, class T2, class T3........>
+		return_type function_name(args)
+		{
+			some codes.......
+		}
+		
+	--> for class -->
+		template <typename T1, typename T2, typename T3.....>
+		class A:public B<T1>,Private C<T2>......
+		{
+			some code........
+		}	
+
+			--OR--
+
+		
+		template <class T1, class T2, class T3.....>
+		class A:public B<T1>,Private C<T2>......
+		{
+			some code........
+		}
+	 
+	--> while calling 
+		--> for functions --> variable_name = function_name<data_type1,data_type2<data_type3....>(args);
+		--> for objects of the class --> class_name<data_type1,data_type2<data_type3....> object_name(args);
+					     -->class_name<data_type1,data_type2<data_type3....> object_name = new class_name<data_type1,data_type2<data_type3....>(args);	
+	-->NOTE--> we can replace T by any other name also
